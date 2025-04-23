@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>CTR / CVR 상승 상품 리포트</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+    }
+    .tab {
+      overflow: hidden;
+      border-bottom: 1px solid #ccc;
+    }
+    .tab button {
+      background-color: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 10px 20px;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    .tab button.active {
+      background-color: #ccc;
+    }
+    .tabcontent {
+      display: none;
+      padding: 20px 0;
+    }
+    .tabcontent img {
+      max-width: 95%;
+      margin-bottom: 1em;
+    }
+    .tabcontent h2 {
+      margin-top: 0;
+    }
+    #auth-box {
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="auth-box">
+  <h2>비밀번호를 입력하세요</h2>
+  <input type="password" id="pw" placeholder="비밀번호 입력" />
+  <button onclick="checkPassword()">확인</button>
+</div>
+
+<div id="main-content" style="display: none;">
+  <div class="tab">
+    <button class="tablinks" onclick='openTab(event, "report")' id="defaultOpen">CTR / CVR 상승 상품</button>
+  </div>
+
+  <div id="report" class="tabcontent">
+    <h2>CTR / CVR 상승 상품 리포트</h2>
+    <p>2025-04-23 09:37:03 기준 최근 7일 대비 그 이전 7일동안 CTR/CVR이 상승한 상위 10개 상품입니다.</p>
+    <div style="margin-bottom: 16px; font-size: 14px; line-height: 1.5;">
+      <strong>📌 지표 설명</strong><br>
+      - <strong>최근 7일 평균 판매량</strong>: 최근 7일간 평균 판매수<br>
+      - <strong>이전 7일 평균 판매량</strong>: 이전 7일간 평균 판매수<br>
+      - <strong>CTR 상승률 (%)</strong>: 이전 7일 대비 CTR(클릭수/노출수) 상승률 (%)<br>
+      - <strong>CVR 상승률 (%)</strong>: 이전 7일 대비 CVR(판매수/노출수) 상승률 (%)<br>
+      - <strong>판매 순위</strong>: 최근 7일 판매량 기준 순위 (이전 7일 순위)
+    </div>
+    <img src="summary_7day_compare_table.png" alt="Top30 상품 표">
+    <img src="summary_rank_change_top10_table.png" alt="Top10 상품 표">
+    <img src="rank_change_top10_trend.png" alt="Top10 상품 추이 그래프">
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/js-sha256@0.9.0/src/sha256.min.js"></script>
+<script>
+  const HASHED_PASSWORD = "none";
+
+  function checkPassword() {
+    const input = document.getElementById("pw").value.trim();
+    if (input === "dr_11610") {
+      document.getElementById("auth-box").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+      document.getElementById("defaultOpen")?.click();
+    } else {
+      alert("비밀번호가 틀렸습니다.");
+    }
+  }
+
+  function openTab(evt, tabName) {
+    const tabcontent = document.getElementsByClassName("tabcontent");
+    const tablinks = document.getElementsByClassName("tablinks");
+    for (let i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none";
+    for (let i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+  }
+</script>
+
+</body>
+</html>
